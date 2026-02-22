@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="../Monogame-Extended/source/MonoGame.Extended/MonoGame.Extended.csproj" />
+  <Project Path="../MW.Core/MW.Core/MW.Core.csproj" />
   <Project Path="WildWorld/WildWorld.csproj" />
 </Solution>
