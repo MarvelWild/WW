@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
+using System;
 using System.Windows.Forms;
 using WildWorld.Screen;
 using WildWorld.Service;
@@ -34,6 +35,9 @@ namespace WildWorld
             IsMouseVisible = true;
 			_screenManager = new ScreenManager();
 			Components.Add(_screenManager);
+
+			Window.AllowUserResizing = true;
+			Window.ClientSizeChanged += OnResize;
 		}
 
         protected override void Initialize()
@@ -103,6 +107,18 @@ namespace WildWorld
 
 			_graphics.ApplyChanges();
 			_isFullScreen = !_isFullScreen;
+		}
+
+		public void OnResize(Object sender, EventArgs e)
+		{
+
+			if ((_graphics.PreferredBackBufferWidth != _graphics.GraphicsDevice.Viewport.Width) ||
+				(_graphics.PreferredBackBufferHeight != _graphics.GraphicsDevice.Viewport.Height))
+			{
+				_graphics.PreferredBackBufferWidth = _graphics.GraphicsDevice.Viewport.Width;
+				_graphics.PreferredBackBufferHeight = _graphics.GraphicsDevice.Viewport.Height;
+				_graphics.ApplyChanges();
+			}
 		}
 	} // Game1
 }
