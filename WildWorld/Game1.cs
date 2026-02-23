@@ -42,6 +42,9 @@ namespace WildWorld
 
             base.Initialize();
 
+			GM.Instance = new GM();
+			GM.Instance.NewGame();
+
 			_screenManager.ShowScreen(Screens.GameplayScreen);
 		}
 
@@ -61,12 +64,14 @@ namespace WildWorld
 				ToggleFullScreen();
 			}
 
+			GM.Instance.Update(gameTime);
+
 			base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 

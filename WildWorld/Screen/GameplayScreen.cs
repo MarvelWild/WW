@@ -34,12 +34,16 @@ namespace WildWorld.Screen
 
 		public override void Draw(GameTime gameTime)
 		{
-			var sb = Game1.Instance.SpriteBatch;
-			sb.Begin();
-			sb.Draw(_player, Vector2.Zero, Color.White);
-			//sb.DrawString(Res.MainFont, GameTimer.NowDate, _datePosition, Color.White);
-			//sb.DrawString(Res.MainFont, GameTimer.NowTime, _timePosition, Color.White);
-			sb.End();
+			GM.Instance.World.Draw(gameTime);
+
+			//var sb = Game1.Instance.SpriteBatch;
+
+
+			//sb.Begin();
+			//sb.Draw(_player, Vector2.Zero, Color.White);
+			////sb.DrawString(Res.MainFont, GameTimer.NowDate, _datePosition, Color.White);
+			////sb.DrawString(Res.MainFont, GameTimer.NowTime, _timePosition, Color.White);
+			//sb.End();
 		}
 
 		public override void Update(GameTime gameTime)
