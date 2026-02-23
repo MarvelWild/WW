@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.ECS;
 using MonoGame.Extended.ECS.Systems;
+using MonoGame.Extended.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace WildWorld.System
 {
 	internal class PlayerSystem : EntityProcessingSystem
 	{
-		private ComponentMapper<Character> _playerMapper;
+		private ComponentMapper<Character> _characterMapper;
 
 		private int _speed = 1;
 
@@ -20,31 +21,38 @@ namespace WildWorld.System
 
 		public override void Initialize(IComponentMapperService mapperService)
 		{
-			_playerMapper = mapperService.GetMapper<Character>();
+			_characterMapper = mapperService.GetMapper<Character>();
 		}
 
 		public override void Process(GameTime gameTime, int entityId)
 		{
-			Character player = _playerMapper.Get(entityId);
+			Character playerCharacter = _characterMapper.Get(entityId);
+
+			if (Input.Mouse.WasButtonPressed(MouseButton.Left))
+			{
+				// todo: mouse to world coord transform (when cam implemented)
+				
+				playerCharacter.DesiredPosition = Input.Mouse.Position.ToVector2();
+			}
 
 			if (Input.Kb.IsKeyDown(Keys.Left))
 			{
-				player.Position.X -= _speed;
+				playerCharacter.Position.X -= _speed;
 			}
 
 			if (Input.Kb.IsKeyDown(Keys.Right))
 			{
-				player.Position.X += _speed;
+				playerCharacter.Position.X += _speed;
 			}
 
 			if (Input.Kb.IsKeyDown(Keys.Up))
 			{
-				player.Position.Y -= _speed;
+				playerCharacter.Position.Y -= _speed;
 			}
 
 			if (Input.Kb.IsKeyDown(Keys.Down))
 			{
-				player.Position.Y += _speed;
+				playerCharacter.Position.Y += _speed;
 			}
 		}
 	}
