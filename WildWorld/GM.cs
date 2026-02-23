@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.ECS;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using WildWorld.System;
 namespace WildWorld
 {
 	/// <summary>
-	/// Game master
+	/// Game master. Handles logic.
 	/// </summary>
 	internal class GM
 	{
@@ -19,8 +20,10 @@ namespace WildWorld
 
 		private World _world;
 		private Entity _playerEntity;
+		private Character _playerCharacter;
 
 		public World World { get { return _world; } }
+		
 
 		public void NewGame()
 		{

@@ -22,7 +22,7 @@ namespace WildWorld.System
 		}
 		public override void Draw(GameTime gameTime)
 		{
-			_spriteBatch.Begin();
+			//_spriteBatch.Begin();
 
 			foreach (var entityId in ActiveEntities)
 			{
@@ -31,7 +31,7 @@ namespace WildWorld.System
 				_spriteBatch.Draw(texture, new Rectangle((int)character.Position.X, (int)character.Position.Y, texture.Width, texture.Height), Color.White);
 			}
 
-			_spriteBatch.End();
+			//_spriteBatch.End();
 		}
 
 		public override void Initialize(IComponentMapperService mapperService)

@@ -1,20 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Screens;
-
+using MonoGame.Extended.ViewportAdapters;
+using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WildWorld.Screen
 {
 	public class GameplayScreen : GameScreen
 	{
-		private Texture2D _player;
 		private bool _isContentLoaded = false;
-		
 
-		
+		private OrthographicCamera _camera;
+
+
+		public override void Initialize()
+		{
+			base.Initialize();
+
+			var viewportAdapter = new BoxingViewportAdapter(Game1.Instance.Window, GraphicsDevice, 1200, 720);
+			_camera = new OrthographicCamera(viewportAdapter);
+			GT.Camera = _camera;
+		}
 
 
 		public override void LoadContent()
@@ -23,7 +34,7 @@ namespace WildWorld.Screen
 
 			base.LoadContent();
 
-			_player = Content.Load<Texture2D>("img/human");
+			
 
 			_isContentLoaded = true;
 		}
@@ -34,9 +45,16 @@ namespace WildWorld.Screen
 
 		public override void Draw(GameTime gameTime)
 		{
+			var sb = Game1.Instance.SpriteBatch;
+
+			// Apply camera transformation
+			sb.Begin(transformMatrix: _camera.GetViewMatrix());
+
 			GM.Instance.World.Draw(gameTime);
 
-			//var sb = Game1.Instance.SpriteBatch;
+			sb.End();
+
+
 
 
 			//sb.Begin();
@@ -48,6 +66,7 @@ namespace WildWorld.Screen
 
 		public override void Update(GameTime gameTime)
 		{
+			// _camera.Position = _player.Position;
 		}
 	}
 }

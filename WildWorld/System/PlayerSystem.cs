@@ -54,6 +54,9 @@ namespace WildWorld.System
 			{
 				playerCharacter.Position.Y += _speed;
 			}
-		}
-	}
+
+			// GT.Camera.Position = playerCharacter.Position;
+			GT.Camera.LookAt(playerCharacter.Position);
+		} // Process
+	} // PlayerSystem
 }
