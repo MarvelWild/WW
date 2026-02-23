@@ -1,0 +1,49 @@
+In MonoGame, mouse clicks can sometimes "pass through" the game window to applications behind it, or continue to register when the mouse cursor is outside the game window. 
+Here are the primary methods to prevent this behavior based on the community and official documentation:
+1. Check IsActive (Best Method) 
+The Game.IsActive property tracks whether your game window is currently focused. If the user clicks on another window, IsActive becomes false. You should check this in your Update method for both mouse and keyboard input to prevent accidental input handling when the game is in the background. 
+MonoGame
+MonoGame
+ +2
+csharp
+protected override void Update(GameTime gameTime)
+{
+    if (IsActive)
+    {
+        MouseState mouseState = Mouse.GetState();
+        // Process clicks here
+    }
+    base.Update(gameTime);
+}
+2. Validate Mouse Coordinates
+If you want to allow the game to run in the background but only process clicks inside the window boundaries, compare the MouseState coordinates against your backbuffer size. 
+Game Development Stack Exchange
+Game Development Stack Exchange
+csharp
+MouseState mouseState = Mouse.GetState();
+if (mouseState.X >= 0 && mouseState.Y >= 0 && 
+    mouseState.X < GraphicsDevice.Viewport.Width && 
+    mouseState.Y < GraphicsDevice.Viewport.Height)
+{
+    // Mouse is inside the window
+}
+3. Handle Deactivated Event 
+Use the Deactivated event to pause your game or disable input handling when the window loses focus. 
+Stack Overflow
+Stack Overflow
+csharp
+this.Deactivated += (sender, args) => 
+{
+    // Pause game or stop accepting input
+};
+4. Lock Cursor to Window (DesktopGL)
+For desktop applications (specifically OpenGL), you can use Mouse.SetPosition to keep the mouse within bounds, though this can sometimes cause stuttering (jitter) if not implemented carefully. A better approach for FPS-style games is to hide the system cursor and use a virtual cursor that is clamped to the window boundary. 
+MonoGame
+MonoGame
+ +1
+Summary Table
+Problem 	Solution
+Clicking other windows affects game	Use if (IsActive) in Update.
+Clicks outside window still count	Check if MouseState.X/Y are within Viewport.
+Game runs in background	Use Deactivated event to pause.
+Note: In some scenarios, IsActive might be true upon launch even if the window isn't focused; you may need to handle this with the Activated event or by ensuring your game window is focused on startup

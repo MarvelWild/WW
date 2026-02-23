@@ -22,7 +22,9 @@ namespace WildWorld
 		private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 		private readonly ScreenManager _screenManager;
+		private long _frameNumber;
 
+		public long FrameNumber { get => _frameNumber; }
 		public SpriteBatch SpriteBatch { get => _spriteBatch; set => _spriteBatch = value; }
 		public ScreenManager ScreenManager => _screenManager;
 
@@ -61,6 +63,7 @@ namespace WildWorld
 
         protected override void Update(GameTime gameTime)
         {
+			_frameNumber++;
 			Input.Update();
 
 			if (Input.Kb.WasKeyPressed(Keys.F12))

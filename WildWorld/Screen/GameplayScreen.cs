@@ -14,8 +14,10 @@ namespace WildWorld.Screen
 	public class GameplayScreen : GameScreen
 	{
 		private bool _isContentLoaded = false;
+		private Texture2D _bg;
 
 		private OrthographicCamera _camera;
+		private Rectangle _bgRectangle;
 
 
 		public override void Initialize()
@@ -24,6 +26,9 @@ namespace WildWorld.Screen
 
 			var viewportAdapter = new BoxingViewportAdapter(Game1.Instance.Window, GraphicsDevice, 1200, 720);
 			_camera = new OrthographicCamera(viewportAdapter);
+			_bg = Game1.Instance.Content.Load<Texture2D>("img/bg1");
+			_bgRectangle = new Rectangle(0, 0, _bg.Width, _bg.Height);
+			_camera.EnableWorldBounds(_bgRectangle);
 			GT.Camera = _camera;
 		}
 
@@ -35,6 +40,7 @@ namespace WildWorld.Screen
 			base.LoadContent();
 
 			
+
 
 			_isContentLoaded = true;
 		}
@@ -50,7 +56,10 @@ namespace WildWorld.Screen
 			// Apply camera transformation
 			sb.Begin(transformMatrix: _camera.GetViewMatrix());
 
+			Game1.Instance.SpriteBatch.Draw(_bg, _bgRectangle, Color.White);
+
 			GM.Instance.World.Draw(gameTime);
+			
 
 			sb.End();
 

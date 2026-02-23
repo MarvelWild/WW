@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using WildWorld.Component;
 using WildWorld.Service;
+using WildWorld.Util;
 
 namespace WildWorld.System
 {
@@ -31,9 +32,15 @@ namespace WildWorld.System
 			if (Input.Mouse.WasButtonPressed(MouseButton.Left))
 			{
 				// todo: mouse to world coord transform (when cam implemented)
-				
-				playerCharacter.DesiredPosition = Input.Mouse.Position.ToVector2();
+
+				playerCharacter.DesiredPosition = Input.GetMousePos();
+				Log.Info("playerCharacter.DesiredPosition:" + playerCharacter.DesiredPosition);
 			}
+
+			//var ms = Mouse.GetState();
+			//Log.Info(ms.ToString());
+
+
 
 			if (Input.Kb.IsKeyDown(Keys.Left))
 			{
@@ -53,6 +60,24 @@ namespace WildWorld.System
 			if (Input.Kb.IsKeyDown(Keys.Down))
 			{
 				playerCharacter.Position.Y += _speed;
+			}
+
+			// todo: diagonal speed
+			if (playerCharacter.DesiredPosition.X != playerCharacter.Position.X)
+			{
+				var directionX = playerCharacter.DesiredPosition.X > playerCharacter.Position.X ? 1 : -1;
+				var distanceX = Math.Abs(playerCharacter.DesiredPosition.X - playerCharacter.Position.X);
+				var distancePerFrame = Math.Min(distanceX, _speed);
+				var xDelta = distancePerFrame * directionX;
+				playerCharacter.Position.X += xDelta;
+			}
+
+			if (playerCharacter.DesiredPosition.Y != playerCharacter.Position.Y)
+			{
+				var directionY = playerCharacter.DesiredPosition.Y > playerCharacter.Position.Y ? 1 : -1;
+				var distanceY = Math.Abs(playerCharacter.DesiredPosition.Y - playerCharacter.Position.Y);
+				var distancePerFrame = Math.Min(distanceY, _speed);
+				playerCharacter.Position.Y += distancePerFrame * directionY;
 			}
 
 			// GT.Camera.Position = playerCharacter.Position;

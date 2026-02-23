@@ -9,6 +9,13 @@ namespace WildWorld.Service
 	{
 		public static KeyboardStateExtended Kb;
 		public static MouseStateExtended Mouse;
+
+		public static Microsoft.Xna.Framework.Vector2 GetMousePos()
+		{
+			return GT.Camera.ScreenToWorld(Mouse.Position.ToVector2());
+			
+		}
+
 		public static void Update()
 		{
 			KeyboardExtended.Update();

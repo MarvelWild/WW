@@ -39,6 +39,7 @@ namespace WildWorld
 
 			var characterComponent = new Character();
 			characterComponent.Position = new Vector2(100, 120);
+			characterComponent.DesiredPosition = new Vector2(100, 120);
 			_playerEntity.Attach(characterComponent);
 
 			var playerComponent = new Player();
