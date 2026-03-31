@@ -14,7 +14,7 @@ Influenced by Sketch Tales, World of Warcraft, Minecraft, Stardew Valley, Don't 
 
 
 
-![Screenshot]([https://mwld.win/static/img/Blog-ULR-1.jpg](https://mwld.win/static/img/misc/wwnet/wwnet-0001.webp)
+![Screenshot]([https://mwld.win/static/img/Blog-ULR-1.jpg](https://mwld.win/static/img/misc/wwnet/wwnet-0001.webp))
 
 
 
